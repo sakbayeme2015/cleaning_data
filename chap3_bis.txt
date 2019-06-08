@@ -1,0 +1,53 @@
+Combining data 
+
+Data may not always come in 1 huge file ,combine more than 5 datasets in 1 file is easy 
+
+concatened = pd.concat([weather_p1, weather_p2]) 
+print(concatened) 
+
+>>> import pandas as pd 
+>>> weather_p1 = pd.read_csv('weather.csv') 
+>>> weather_p2 = pd.read_csv('weather.csv') 
+>>> concatened = pd.concat([weather_p1, weather_p2]) 
+>>> print(concatened) 
+>>> concatened = pd.concat([weather_p1, weather_p2], ignore_index=True)
+
+>>>concatened.iloc[0:86, [1,2,3,7,6]]
+>>> concatened.loc[:, ['temp', 'wind_speed']] 
+>>> concatened.loc[0, ['temp', 'wind_speed']]  .loc filtring unique value
+
+>>> uber1 = pd.read_csv('nyc_uber_2014.csv') 
+>>> uber2 = pd.read_csv('nyc_uber_2014.csv') 
+>>> uber3 = pd.read_csv('nyc_uber_2014.csv') 
+>>> row_concat = pd.concat([uber1, uber2, uber3]) 
+>>> row_concat.head() 
+>>> row_concat.loc[0, :] 
+>>> row_concat.loc[:,] 
+
+find csv file with glob function and concatened in the single df
+>>> import glob 
+>>> pattern = '*.csv'
+>>> csv_files = glob.glob(pattern) 
+>>> print(csv_files) 
+['weather_p2.csv', 'weather.csv', 'weather_p1.csv', 'ebola.csv', 'nyc_uber_2014.csv']
+>>> csv2 = pd.read_csv(csv_files[2]) 
+>>> csv2.head() 
+>>> frames = [] 
+>>> for csv in csv_files: 
+...  df = pd.read_csv(csv) 
+...  frames.append(df) 
+... 
+>>> uber = pd.concat(frames) 
+>>> uber.columns
+>>> uber.head() 
+>>> uber.shape
+
+merge
+df1 = pd.read_csv('file.csv') 
+df2 = pd.read_csv('file2.csv') 
+>>> merge_funct = pd.merge(df1, df2, on='date', how='left')
+>>> merge_funct = pd.merge(df1, df2, on='date', how='right') 
+>>> merge_funct = pd.merge(df1, df2, on='date', left_index=True, right_index=True) 
+
+
+

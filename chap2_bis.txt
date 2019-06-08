@@ -1,0 +1,76 @@
+Principles of tidy data 
+
+Columns represent separate variables 
+Rows represent individual observations 
+observatiional units form tables 
+
+
+Converting to tidy data 
+name  treatment a  treatment b                 name     treatment     value
+
+Daniel   -           42                 >>>    Daniel   treatment a     -
+John     12          31                        John     treatment a     12
+Jane     24          27                        Jane     treatment a     24
+                                               Daniel   treatment b     42
+                                               John     treatment b     31
+                                               Jane     treqtment b     27
+
+Better for reporting                             better for analysis 
+
+Tidy data makes it easier to fix common data problems
+pd.melt(frame=df, id_vars='name', value_vars=['treatment a', 'treatment b']) 
+
+
+Pivot: un-melting data 
+Opposite of Tidy data put all the column in separate row 
+
+date          element      value                     element        tmax        tmin
+
+2010-01-30    tmax         27.8                      date
+2010-01-30    tmin         14.5             >>>      2010-02-30      27.8        14.5
+2010-02-02    tmax         27.3                      2010-02-02      27.3        14.4
+2010-02-02    tmin         14.4
+
+weather_tidy  = weather.pivot(index='date', columns='element', values='value') 
+print(weather_tidy) 
+
+import numpy as np 
+
+Pivot table
+weather_tidy  = weather.pivot(index='date', columns='element', values='value', aggfunc=np.mean)
+weather_tidy  = weather.pivot(index='date', columns='element', values='value')
+
+
+Beyond melt and pivot 
+
+country          year      m014      m1524
+AD               2000       0         0
+AE               2000       2         4
+AF               2000       52        228 
+
+
+pd.melt(frame=tb, id_vars=['country', 'year']) 
+tb_melt['sex'] = tb_melt.variable.str[0] 
+
+Melting data is the process of turning columns of your data into rows of data.
+>>> import pandas as pd 
+>>> airquality = pd.read_csv('airquality.csv') 
+>>> airquality_melt = pd.melt(airquality, id_vars=['Month', 'Day'])
+Custumizing your melting data
+>>> airquality_melt = pd.melt(airquality, id_vars=['Month', 'Day', 'Temp', 'Wind'], var_name='measurement', value_name='reading') 
+>>> airquality_melt.head() 
+
+Pivot data
+>>> airquality_pivot = airquality_melt.pivot_table(index=['Month', 'Day', 'Temp', 'Wind'], columns='measurement', values='reading') 
+
+Reset index
+>>> airquality_pivot_reset = airquality_pivot.reset_index() 
+>>> airquality_pivot_reset.head() 
+
+Splitting new column with str
+>>> airquality_melt = pd.melt(frame=airquality, id_vars=['Month', 'Day', 'Temp', 'Wind']) 
+>>> airquality_melt['venus'] = airquality_melt.variable.str[0] 
+>>> airquality_melt.head() 
+
+
+

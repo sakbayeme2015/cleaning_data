@@ -1,0 +1,81 @@
+>>> import pandas as pd 
+>>> import matplotlib.pyplot as plt 
+>>> gapminder = pd.read_csv('gapminder.csv') 
+>>> gapminder.head() 
+
+>>> gapminder.info()
+>>> gapminder.columns 
+>>> gapminder.describe()
+>>> g1800 = pd.DataFrame(gapminder, columns=['1800']) 
+>>> g1800.head() 
+
+>>> g1800.plot(kind='scatter', x='1800', y='1899') 
+<matplotlib.axes._subplots.AxesSubplot object at 0x7fb1c08a2890>
+>>> plt.xlabel('Life Expectancy in 1800') 
+<matplotlib.text.Text object at 0x7fb1c07f8d10>
+>>> plt.ylabel('Life Expectancy in 1899') 
+<matplotlib.text.Text object at 0x7fb1c0821350>
+>>> plt.xlim(20, 55) 
+(20, 55)
+>>> plt.ylim(20, 55) 
+(20, 55)
+>>> plt.show() 
+
+>>> def check_null_or_valid(row_data): 
+...  no_na = row_data.dropna() 
+...  numeric = pd.to_numeric(no_na) 
+...  geo = numeric >= 0
+...  return geo 
+... 
+>>> 
+
+# Check whether the values in the row are valid
+assert g1800s.iloc[:, 1:].apply(check_null_or_valid, axis=1).all().all()
+# Check that there is only one instance of each country
+assert g1800s['Life expectancy'].value_counts()[0] == 1
+
+
+>>> g1800 = pd.DataFrame(gapminder, columns=['1800', '1899', 'Life expectancy'])
+>>> g1800.head() 
+>>> g1800.columns[2] == 'Life expectancy' 
+
+>>> g1800 = pd.DataFrame(gapminder, columns=['1800', '2013', 'Life expectancy']) 
+>>> g1800.head() 
+>>> g1900 = pd.DataFrame(gapminder, columns=['1900', '2014', '2015']) 
+>>> g1900.head()
+>>> g2000 = pd.DataFrame(gapminder, columns=['2000', '2008', '2016']) 
+>>> g2000.head()
+>>> g1800.loc[0:200, 'Life expectancy'] 
+
+>>> pd.DataFrame.hist(g1800[['1800']]) 
+array([[<matplotlib.axes._subplots.AxesSubplot object at 0x7fdf3a6b1310>]],
+      dtype=object)
+>>> plt.xlabel('data 1800 year') 
+<matplotlib.text.Text object at 0x7fdf3a6b1c90>
+>>> plt.ylabel('Year') 
+<matplotlib.text.Text object at 0x7fdf3a6b6f10>
+>>> plt.show()
+
+>>> gapminder_concat = pd.concat([g1800, g1900, g2000]) 
+>>> print(gapminder_concat.head()) 
+
+>>> gapminder_melt = pd.melt(gapminder_concat, id_vars='Life expectancy') 
+>>> gapminder_melt.columns = ['year', 'country', 'life']
+>>> gapminder_melt.head() 
+
+>>> gapminder.country = pd.to_numeric(gapminder_melt.country) 
+>>> gapminder.country.dtypes == np.object 
+False
+>>> gapminder.country.dtypes == np.int64
+True
+
+>>> merge_funct = pd.merge(g1800, g1900, left_index=True, right_index=True) 
+
+>>> countries = gapminder_melt['year'] 
+>>> countries = countries.drop_duplicates() 
+>>> pattern = '^[A-Za-z\.\s]*$'
+>>> mask = countries.str.contains(pattern) 
+>>> mask = countries.str.contains(pattern) 
+>>> countries_1 = countries.loc[:,] 
+
+

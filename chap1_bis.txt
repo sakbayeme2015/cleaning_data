@@ -1,0 +1,30 @@
+>>> df = pd.read_csv('literary_birth_rate.csv') 
+>>> df.head() 
+                        Country Continent  female  literacy  fertility  population
+0        Chine;ASI;90.5;1.769;1       324   655.0       0.0        NaN         NaN
+1         Inde;ASI;50.8;2.682;1       139   964.0     932.0        NaN         NaN
+2          USA;NAM;99;2.077;304       060     0.0       NaN        NaN         NaN
+3  Indonésie;ASI;88.8;2.132;227       345    82.0       NaN        NaN         NaN
+4     Brésil;LAT;90.2;1.827;191       971   506.0       NaN        NaN         NaN
+>>> df.info()
+>>> df.Country.value_counts(dropna=False)  # Frequency 
+>>> df['Continent'].value_counts(dropna=False) 
+>>> df['Continent'].value_counts(dropna=False).head() 
+>>> df.columns
+>>> df.female.plot('hist') 
+<matplotlib.axes._subplots.AxesSubplot object at 0x7f8431b2ea50>
+>>> plt.show() 
+>>> df.literacy.plot('hist') 
+<matplotlib.axes._subplots.AxesSubplot object at 0x7f8431acd090>
+>>> plt.show() 
+
+
+>>> df = pd.read_csv('dob_job_application_filings_subset.csv') 
+>>> df.info() 
+>>> df['Owners First Name'].value_counts(dropna=False) 
+>>> df.columns
+>>> df.loc[:, ['Owners House Number', 'Owners First Name', 'Owners Last Name']] 
+
+>>> df['Owners House Number'].value_counts(dropna=False).describe() 
+
+>>> df.plot(kind='scatter', x='Proposed Height', y='Existing Height', rot=70) 
